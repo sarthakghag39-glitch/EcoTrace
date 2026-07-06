@@ -450,16 +450,15 @@
 
       <!-- PERSONALIZED ACTION RECOMMENDATIONS CARD (FULL WIDTH) -->
       <div class="glass-card recommendation-card hidden" id="recommendation-panel">
-        <div class="rec-icon">
-          <i class="fa-solid fa-lightbulb"></i>
+        <div class="rec-icon" style="background: linear-gradient(135deg, #059669 0%, #0891b2 100%); color: white;">
+          <i class="fa-solid fa-robot"></i>
         </div>
         <div class="rec-content">
-          <h3>Your Personalized Action Plan</h3>
-          <p id="rec-text">Our analysis shows transportation makes up the bulk of your footprint. Try mapping errands together or using light transit one day a week.</p>
+          <h3 style="display: flex; align-items: center; gap: 0.5rem;">AI Eco-Coach Insights <span class="badge" style="background: rgba(8, 145, 178, 0.2); color: #0891b2; font-size: 0.7rem;">Gemini AI</span></h3>
+          <p id="rec-text" style="line-height: 1.6;">Loading personalized AI insights...</p>
         </div>
         <div class="rec-metric">
-          <span class="rec-metric-val" id="rec-saving-est">0.0 kg</span>
-          <span class="rec-metric-lbl">Est. Monthly Savings</span>
+          <button class="btn btn-secondary" id="ai-refresh-btn" style="padding: 0.5rem 1rem;"><i class="fa-solid fa-wand-magic-sparkles"></i> Ask AI</button>
         </div>
       </div>
 
@@ -486,6 +485,6 @@
   </footer>
 
   <!-- App JavaScript Logic -->
-  <script src="app.js"></script>
+  <script src="app.js?v=1.1"></script>
 </body>
 </html>

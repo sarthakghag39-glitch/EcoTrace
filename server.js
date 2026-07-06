@@ -1,13 +1,25 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const path = require('path');
+const { GoogleGenAI } = require('@google/genai');
 const db = require('./database/db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'ecotrace-super-secret-key-13';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+let aiClient = null;
+if (GEMINI_API_KEY) {
+  try {
+    aiClient = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+  } catch (err) {
+    console.error('Failed to initialize AI Client:', err);
+  }
+}
 
 // Enable CORS and body parsing
 app.use(cors());
@@ -342,6 +354,49 @@ app.get('/api/leaderboard', (req, res) => {
 
   // Return top 10
   res.json(allUsers.slice(0, 10));
+});
+
+
+// ---------------- AI ECO-COACH ENDPOINT ----------------
+
+app.post('/api/ai/coach', authenticateToken, async (req, res) => {
+  try {
+    // Get user's latest footprint
+    const logs = db.find('logs', { userId: req.user.id });
+    if (!logs || logs.length === 0) {
+      return res.json({ advice: "Hi there! I'm your AI Eco-Coach. I need you to calculate your footprint first so I can give you personalized advice." });
+    }
+    
+    // Sort and get the most recent log
+    logs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    const latestLog = logs[0];
+    
+    // Check if we have a valid API client
+    if (!aiClient) {
+      console.log("No valid Gemini API key found, using fallback AI simulated response.");
+      return res.json({ advice: `[Simulated AI Fallback]\nGreat job tracking! Your total footprint is ${latestLog.totalCarbon} kg. Since your highest emissions come from ${Math.max(latestLog.transport, latestLog.energy, latestLog.diet) === latestLog.transport ? 'Transport' : 'your daily habits'}, try walking short distances or turning off unused electronics to lower your impact!` });
+    }
+
+    // Prepare prompt
+    const prompt = `You are a friendly, encouraging AI Eco-Coach. A user just logged their carbon footprint.
+Transport emissions: ${latestLog.transport} kg CO2
+Energy emissions: ${latestLog.energy} kg CO2
+Diet emissions: ${latestLog.diet} kg CO2
+Waste emissions: ${latestLog.waste} kg CO2
+Total: ${latestLog.totalCarbon} kg CO2
+
+Based on this specific data, give 2 short, highly personalized, and actionable tips to help them reduce their footprint. Do not use markdown headers, just return a short friendly message.`;
+
+    const response = await aiClient.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: prompt,
+    });
+    
+    res.json({ advice: response.text });
+  } catch (error) {
+    console.error("AI Generation Error:", error);
+    res.json({ advice: "I'm having trouble connecting to my AI brain right now. Please keep up your great work and try again later!" });
+  }
 });
 
 

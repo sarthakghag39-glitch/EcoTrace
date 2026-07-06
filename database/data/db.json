@@ -18,13 +18,13 @@
       "name": "Sarthak",
       "email": "ghagmansi3@gmail.com",
       "password": "$2a$10$j2KnosB6u0E3XSixWGhzUORBqOnG8qafyzbLtuKCPjLMVINSxZL0y",
-      "level": 1,
-      "points": 100,
-      "streak": 1,
-      "totalCarbonSaved": 0,
-      "lastActiveDate": "2026-07-05T18:01:22.004Z",
+      "level": 2,
+      "points": 550,
+      "streak": 2,
+      "totalCarbonSaved": 4.2,
+      "lastActiveDate": "2026-07-06T17:28:25.350Z",
       "createdAt": "2026-07-05T17:50:41.071Z",
-      "updatedAt": "2026-07-05T18:01:22.006Z"
+      "updatedAt": "2026-07-06T17:31:02.479Z"
     },
     {
       "id": "9w5dohuxu",
@@ -38,6 +38,45 @@
       "lastActiveDate": "2026-07-05T17:59:07.976Z",
       "createdAt": "2026-07-05T17:59:07.916Z",
       "updatedAt": "2026-07-05T17:59:07.990Z"
+    },
+    {
+      "id": "7x7wyojs7",
+      "name": "Sarthak Ghag",
+      "email": "sarthak_1783318516461@example.com",
+      "password": "$2a$10$tGzoo9aIpAiwrnvpHERA2OEOukA9plG8u6xut8fq91maSEKQM2QQW",
+      "level": 1,
+      "points": 100,
+      "streak": 0,
+      "totalCarbonSaved": 0,
+      "lastActiveDate": null,
+      "createdAt": "2026-07-06T06:15:16.667Z",
+      "updatedAt": "2026-07-06T06:15:21.120Z"
+    },
+    {
+      "id": "ui45a4g9n",
+      "name": "Test AI User",
+      "email": "ai1783358277176@test.com",
+      "password": "$2a$10$f9PDwMzzvkHN.WvVkfffmOd2NbwWpVUeFUUzeocL17/EQsTzlMC4S",
+      "level": 1,
+      "points": 100,
+      "streak": 0,
+      "totalCarbonSaved": 0,
+      "lastActiveDate": null,
+      "createdAt": "2026-07-06T17:17:57.407Z",
+      "updatedAt": "2026-07-06T17:17:57.437Z"
+    },
+    {
+      "id": "gwfj9ac5n",
+      "name": "Sarthak Ghag",
+      "email": "sarthak_1783359699253@example.com",
+      "password": "$2a$10$GvP.ul86U76rrxy0sT9imerC424VDxuObcJGMVe388Ey5N4KVBTUC",
+      "level": 1,
+      "points": 100,
+      "streak": 0,
+      "totalCarbonSaved": 0,
+      "lastActiveDate": null,
+      "createdAt": "2026-07-06T17:41:39.634Z",
+      "updatedAt": "2026-07-06T17:41:44.361Z"
     }
   ],
   "logs": [
@@ -103,6 +142,127 @@
         "recycleRate": 40
       },
       "createdAt": "2026-07-05T17:59:07.980Z"
+    },
+    {
+      "id": "729x7pzfs",
+      "userId": "7x7wyojs7",
+      "transport": 2090,
+      "energy": 37.3,
+      "diet": 11.9,
+      "waste": 23.8,
+      "totalCarbon": 2163,
+      "details": {
+        "carDistance": 1500,
+        "carType": "petrol",
+        "transitDistance": 500,
+        "flightHours": 20,
+        "electricityKwh": 85,
+        "gasKwh": 25,
+        "dietType": "vegetarian",
+        "wasteVolume": "high",
+        "recycleRate": 25
+      },
+      "createdAt": "2026-07-06T06:15:21.115Z"
+    },
+    {
+      "id": "m6bl237tu",
+      "userId": "9on47i1g0",
+      "transport": 1821.6,
+      "energy": 10.6,
+      "diet": 23.1,
+      "waste": 5.95,
+      "totalCarbon": 1861.25,
+      "details": {
+        "carDistance": 100,
+        "carType": "petrol",
+        "transitDistance": 90,
+        "flightHours": 20,
+        "electricityKwh": 20,
+        "gasKwh": 15,
+        "dietType": "heavy-meat",
+        "wasteVolume": "low",
+        "recycleRate": 25
+      },
+      "createdAt": "2026-07-06T17:00:50.684Z"
+    },
+    {
+      "id": "84zuvfoep",
+      "userId": "ui45a4g9n",
+      "transport": 9,
+      "energy": 11.4,
+      "diet": 10.5,
+      "waste": 7,
+      "totalCarbon": 37.9,
+      "details": {
+        "carDistance": 50,
+        "electricityKwh": 30,
+        "dietType": "vegan",
+        "wasteVolume": "low"
+      },
+      "createdAt": "2026-07-06T17:17:57.435Z"
+    },
+    {
+      "id": "chbnqg1ka",
+      "userId": "9on47i1g0",
+      "transport": 2713.2,
+      "energy": 13.4,
+      "diet": 11.9,
+      "waste": 6.44,
+      "totalCarbon": 2744.94,
+      "details": {
+        "carDistance": 100,
+        "carType": "hybrid",
+        "transitDistance": 80,
+        "flightHours": 30,
+        "electricityKwh": 30,
+        "gasKwh": 10,
+        "dietType": "vegetarian",
+        "wasteVolume": "medium",
+        "recycleRate": 90
+      },
+      "createdAt": "2026-07-06T17:23:44.289Z"
+    },
+    {
+      "id": "cwgajrxhz",
+      "userId": "9on47i1g0",
+      "transport": 7221.16,
+      "energy": 13.4,
+      "diet": 23.1,
+      "waste": 11.9,
+      "totalCarbon": 7269.56,
+      "details": {
+        "carDistance": 108,
+        "carType": "diesel",
+        "transitDistance": 70,
+        "flightHours": 80,
+        "electricityKwh": 30,
+        "gasKwh": 10,
+        "dietType": "heavy-meat",
+        "wasteVolume": "medium",
+        "recycleRate": 25
+      },
+      "createdAt": "2026-07-06T17:31:02.476Z"
+    },
+    {
+      "id": "lifzkn3e8",
+      "userId": "gwfj9ac5n",
+      "transport": 2090,
+      "energy": 37.3,
+      "diet": 11.9,
+      "waste": 23.8,
+      "totalCarbon": 2163,
+      "details": {
+        "carDistance": 1500,
+        "carType": "petrol",
+        "transitDistance": 500,
+        "flightHours": 20,
+        "electricityKwh": 85,
+        "gasKwh": 25,
+        "dietType": "vegetarian",
+        "wasteVolume": "high",
+        "recycleRate": 25
+      },
+      "createdAt": "2026-07-06T17:41:44.357Z"
     }
   ],
   "quests": [
@@ -167,6 +327,12 @@
       "userId": "9w5dohuxu",
       "questId": "q1",
       "createdAt": "2026-07-05T17:59:07.988Z"
+    },
+    {
+      "id": "dub83yiex",
+      "userId": "9on47i1g0",
+      "questId": "q1",
+      "createdAt": "2026-07-06T17:01:12.695Z"
     }
   ]
 }

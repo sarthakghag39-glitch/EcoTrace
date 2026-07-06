@@ -561,37 +561,63 @@ function renderLeaderboard() {
 
 // ---------------- SMART ECO RECOMMENDATIONS ----------------
 
+async function fetchAIRecommendations() {
+  if (!state.token) return;
+
+  const recText = document.getElementById('rec-text');
+  recText.textContent = "Analyzing your footprint with Gemini AI...";
+  recommendationPanel.classList.remove('hidden');
+  
+  const refreshBtn = document.getElementById('ai-refresh-btn');
+  if (refreshBtn) refreshBtn.disabled = true;
+
+  try {
+    const data = await apiRequest('/api/ai/coach', 'POST');
+    
+    // Basic typing effect
+    recText.textContent = '';
+    let i = 0;
+    const text = data.advice || 'Keep up the good work!';
+    const speed = 25; // ms per char
+    
+    function typeWriter() {
+      if (i < text.length) {
+        recText.textContent += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      } else {
+        if (refreshBtn) refreshBtn.disabled = false;
+      }
+    }
+    typeWriter();
+  } catch (err) {
+    recText.textContent = "AI is currently resting. Try again later!";
+    if (refreshBtn) refreshBtn.disabled = false;
+  }
+}
+
 function computeRecommendations(latestLog) {
+  recommendationPanel.classList.remove('hidden');
+  const refreshBtn = document.getElementById('ai-refresh-btn');
+  
   if (!latestLog) {
-    recommendationPanel.classList.add('hidden');
+    const recText = document.getElementById('rec-text');
+    recText.textContent = "Welcome! I'm your AI Eco-Coach. Go ahead and calculate your first footprint in the wizard, and I'll analyze it to give you custom green recommendations!";
+    if (refreshBtn) refreshBtn.style.display = 'none';
     return;
   }
-
-  // Find max category between transport, energy, diet, waste
-  const categories = [
-    { name: 'transport', val: latestLog.transport, icon: 'fa-solid fa-car', recText: 'Transportation makes up the bulk of your carbon footprint. Try walking or cycling for trips under 3 miles, map errand drives together, or swap two driving commutes for public transit weekly.', saving: '32.5 kg' },
-    { name: 'energy', val: latestLog.energy, icon: 'fa-solid fa-plug', recText: 'Home heating and electricity is your largest carbon driver. Consider washing laundry in cold water only, air-drying clothes, switching lightbulbs to high-efficiency LEDs, and turning down your thermostat by 2°C.', saving: '24.0 kg' },
-    { name: 'diet', val: latestLog.diet, icon: 'fa-solid fa-utensils', recText: 'Food production emissions dominate your footprint. Shifting to vegetarian meals even three days a week or swapping red meat for poultry and beans makes a dramatic footprint reduction.', saving: '41.2 kg' },
-    { name: 'waste', val: latestLog.waste, icon: 'fa-solid fa-recycle', recText: 'Landfill waste and plastics are producing significant carbon footprint. Try setting up a home compost system for food leftovers, buying staples in bulk, and carrying reusable bags and bottles.', saving: '15.8 kg' }
-  ];
-
-  // Sort descending
-  categories.sort((a, b) => b.val - a.val);
-  const highest = categories[0];
-
-  recText.textContent = highest.recText;
-  recSavingEst.textContent = highest.saving;
   
-  // Update recommendation icon color matching category
-  const iconDiv = recommendationPanel.querySelector('.rec-icon');
-  iconDiv.innerHTML = `<i class="${highest.icon}"></i>`;
-  iconDiv.className = 'rec-icon';
-  if (highest.name === 'transport') iconDiv.style.color = 'var(--secondary)';
-  else if (highest.name === 'energy') iconDiv.style.color = 'var(--accent)';
-  else if (highest.name === 'diet') iconDiv.style.color = 'var(--primary)';
-  else if (highest.name === 'waste') iconDiv.style.color = '#a78bfa';
+  if (refreshBtn) refreshBtn.style.display = 'inline-block';
+  // Call AI Endpoint automatically
+  fetchAIRecommendations();
+}
 
-  recommendationPanel.classList.remove('hidden');
+// Setup AI Refresh Button listener
+const aiRefreshBtn = document.getElementById('ai-refresh-btn');
+if (aiRefreshBtn) {
+  aiRefreshBtn.addEventListener('click', () => {
+    fetchAIRecommendations();
+  });
 }
 
 
