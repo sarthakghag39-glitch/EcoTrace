@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoTrace - Carbon Footprint Tracker & Calculator (SDG 13)</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- BACKGROUND DECORATIONS -->
+  <div class="glow-bg-1"></div>
+  <div class="glow-bg-2"></div>
+
+  <!-- NAVIGATION HEADER -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo" id="logo-link">
+        <i class="fa-solid fa-leaf text-glow"></i>
+        <span>Eco<span class="highlight">Trace</span></span>
+      </a>
+      
+      <nav class="main-nav" id="main-nav">
+        <a href="#dashboard" class="nav-item active" id="nav-dashboard-link"><i class="fa-solid fa-chart-simple"></i> Dashboard</a>
+        <a href="#calculator" class="nav-item" id="nav-calc-link"><i class="fa-solid fa-calculator"></i> Calculator</a>
+        <a href="#quests" class="nav-item" id="nav-quests-link"><i class="fa-solid fa-circle-check"></i> Quests</a>
+        <a href="#leaderboard" class="nav-item" id="nav-leaderboard-link"><i class="fa-solid fa-trophy"></i> Leaderboard</a>
+      </nav>
+
+      <div class="auth-action-area" id="auth-header-area">
+        <!-- Logged out view -->
+        <button class="btn btn-primary" id="header-get-started-btn">Get Started</button>
+        <!-- Logged in view (hidden initially) -->
+        <div class="user-badge-container hidden" id="user-profile-badge">
+          <div class="user-avatar">
+            <span id="user-avatar-initial">U</span>
+          </div>
+          <div class="user-info-text">
+            <span class="user-name" id="user-display-name">Username</span>
+            <span class="user-level" id="user-display-level">Level 1 Eco-Citizen</span>
+          </div>
+          <button class="logout-btn" id="logout-btn" title="Sign Out"><i class="fa-solid fa-right-from-bracket"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="container">
+
+    <!-- 1. LANDING/HERO SECTION -->
+    <section id="landing-section" class="landing-section">
+      <div class="hero-content">
+        <div class="sdg-badge">
+          <span class="sdg-num">13</span>
+          <span class="sdg-name">Climate Action</span>
+        </div>
+        <h1 class="hero-title">Track. Reduce. <br><span class="gradient-text">Offset Your Carbon.</span></h1>
+        <p class="hero-subtitle">
+          Small steps lead to massive change. Track your carbon footprint from transportation, diet, and energy. Complete daily challenges to build healthy eco-friendly habits.
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg" id="hero-cta-btn">Begin Journey</button>
+          <a href="#about-sdg13" class="btn btn-secondary btn-lg" id="hero-learn-more-btn">Learn More</a>
+        </div>
+        
+        <div class="hero-stats">
+          <div class="stat-card-mini">
+            <h3 id="stat-saved-co2">24,582 kg</h3>
+            <p>Carbon Offsets Logged</p>
+          </div>
+          <div class="stat-card-mini">
+            <h3 id="stat-active-users">1,482</h3>
+            <p>Active Eco-Citizens</p>
+          </div>
+          <div class="stat-card-mini">
+            <h3 id="stat-completed-quests">9,824</h3>
+            <p>Daily Quests Completed</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Auth Card Container -->
+      <div class="auth-card-wrapper" id="auth-section">
+        <div class="glass-card auth-card">
+          <div class="auth-tabs">
+            <button class="auth-tab-btn active" id="tab-login-btn">Login</button>
+            <button class="auth-tab-btn" id="tab-register-btn">Register</button>
+          </div>
+
+          <!-- Login Form -->
+          <form id="login-form" class="auth-form">
+            <h2>Welcome Back</h2>
+            <p class="form-desc">Sign in to update your dashboard and track progress.</p>
+            <div class="error-msg hidden" id="login-error"></div>
+            
+            <div class="form-group">
+              <label for="login-email">Email Address</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="login-email" required placeholder="name@domain.com">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="login-password" required placeholder="••••••••">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </form>
+
+          <!-- Register Form (hidden by default) -->
+          <form id="register-form" class="auth-form hidden">
+            <h2>Create Account</h2>
+            <p class="form-desc">Join the community and combat carbon footprints.</p>
+            <div class="error-msg hidden" id="register-error"></div>
+
+            <div class="form-group">
+              <label for="register-name">Full Name</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="register-name" required placeholder="John Doe">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="register-email">Email Address</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="register-email" required placeholder="name@domain.com">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="register-password">Password</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="register-password" required placeholder="Minimum 6 characters">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Register Account</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- SDG 13 INFO PANEL -->
+    <section id="about-sdg13" class="about-sdg13">
+      <div class="glass-card info-card">
+        <div class="info-layout">
+          <div class="info-graphic">
+            <div class="sdg-block-large">
+              <h2>SDG 13</h2>
+              <h3>Climate Action</h3>
+            </div>
+          </div>
+          <div class="info-text">
+            <h2>Why SDG 13: Climate Action Matters</h2>
+            <p>
+              Climate change is a global emergency that threatens every aspect of human life. Greenhouse gas emissions from human activities are driving global temperature rise, leading to rising sea levels, severe droughts, and devastating wildfires.
+            </p>
+            <p>
+              <strong>The Problem:</strong> Average global temperatures have increased by 1.1°C compared to pre-industrial times. Without rapid and systemic reductions in CO₂ emissions, warming could exceed the critical threshold of 1.5°C by 2030, leading to irreversible tipping points.
+            </p>
+            <p>
+              <strong>Our Solution:</strong> By tracking your personal carbon footprint, you become conscious of your impact. EcoTrace provides a micro-accounting of emissions, helping you make actionable adjustments to your transit, diet, and energy usage.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. USER APPLICATION DASHBOARD (hidden before login) -->
+    <section id="app-dashboard-section" class="app-dashboard-section hidden">
+      
+      <!-- STATS OVERVIEW CARDS -->
+      <div class="stats-grid">
+        <div class="glass-card stat-widget">
+          <div class="widget-icon bg-emerald"><i class="fa-solid fa-fire-flame-curved"></i></div>
+          <div class="widget-details">
+            <h4 id="dash-streak">0 Days</h4>
+            <p>Active Logging Streak</p>
+          </div>
+        </div>
+
+        <div class="glass-card stat-widget">
+          <div class="widget-icon bg-cyan"><i class="fa-solid fa-cloud-arrow-down"></i></div>
+          <div class="widget-details">
+            <h4 id="dash-carbon-saved">0.0 kg</h4>
+            <p>Total Carbon Saved</p>
+          </div>
+        </div>
+
+        <div class="glass-card stat-widget">
+          <div class="widget-icon bg-gold"><i class="fa-solid fa-trophy"></i></div>
+          <div class="widget-details">
+            <h4 id="dash-points">0 XP</h4>
+            <p>Accumulated Points</p>
+          </div>
+        </div>
+
+        <div class="glass-card stat-widget">
+          <div class="widget-icon bg-purple"><i class="fa-solid fa-award"></i></div>
+          <div class="widget-details">
+            <h4 id="dash-level">Level 1</h4>
+            <p>Eco Citizen Ranking</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN APP GRID LAYOUT -->
+      <div class="app-layout-grid">
+        
+        <!-- LEFT COLUMN: INPUTS & QUESTS -->
+        <div class="layout-column">
+          
+          <!-- FOOTPRINT CALCULATOR WIZARD CARD -->
+          <div class="glass-card wizard-card" id="calculator-card">
+            <div class="card-header">
+              <h2><i class="fa-solid fa-calculator"></i> Carbon Footprint Calculator</h2>
+              <span class="badge badge-accent">Interactive</span>
+            </div>
+            
+            <!-- Wizard Steps Header -->
+            <div class="wizard-steps-header">
+              <div class="step-indicator active" id="step-ind-1">1<span class="step-label">Transport</span></div>
+              <div class="step-indicator" id="step-ind-2">2<span class="step-label">Energy</span></div>
+              <div class="step-indicator" id="step-ind-3">3<span class="step-label">Diet</span></div>
+              <div class="step-indicator" id="step-ind-4">4<span class="step-label">Waste</span></div>
+            </div>
+
+            <form id="footprint-wizard-form">
+              <!-- STEP 1: TRANSPORT -->
+              <div class="wizard-step-panel" id="step-panel-1">
+                <h3>Step 1: Transport Habits</h3>
+                <p class="panel-desc">Transportation contributes to nearly 27% of global emissions.</p>
+                
+                <div class="form-group">
+                  <label for="car-distance">Weekly Car Travel (km)</label>
+                  <input type="number" id="car-distance" min="0" placeholder="0" value="0">
+                </div>
+
+                <div class="form-group">
+                  <label>Fuel Type / Vehicle Class</label>
+                  <div class="btn-group-toggle" id="car-type-group">
+                    <button type="button" class="btn-toggle active" data-value="petrol"><i class="fa-solid fa-gas-pump"></i> Petrol</button>
+                    <button type="button" class="btn-toggle" data-value="diesel"><i class="fa-solid fa-oil-can"></i> Diesel</button>
+                    <button type="button" class="btn-toggle" data-value="hybrid"><i class="fa-solid fa-leaf"></i> Hybrid</button>
+                    <button type="button" class="btn-toggle" data-value="electric"><i class="fa-solid fa-bolt"></i> EV</button>
+                  </div>
+                  <input type="hidden" id="car-type" value="petrol">
+                </div>
+
+                <div class="form-group">
+                  <label for="transit-distance">Weekly Public Transit Travel (km)</label>
+                  <input type="number" id="transit-distance" min="0" placeholder="0" value="0">
+                  <span class="input-hint">Includes bus, light rail, and subway.</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="flight-hours">Annual Flight Hours</label>
+                  <input type="number" id="flight-hours" min="0" placeholder="0" value="0">
+                  <span class="input-hint">Enter your total flight hours divided by 52 for a weekly average, or log total flights.</span>
+                </div>
+              </div>
+
+              <!-- STEP 2: ENERGY -->
+              <div class="wizard-step-panel hidden" id="step-panel-2">
+                <h3>Step 2: Home Energy Consumption</h3>
+                <p class="panel-desc">Electricity grid emissions depend heavily on coal/gas inputs.</p>
+                
+                <div class="form-group">
+                  <label for="electricity-kwh">Weekly Electricity Consumption (kWh)</label>
+                  <input type="number" id="electricity-kwh" min="0" placeholder="e.g. 50" value="30">
+                  <span class="input-hint">Average household consumes around 70 kWh weekly.</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="gas-kwh">Weekly Natural Gas Usage (kWh / therms equivalent)</label>
+                  <input type="number" id="gas-kwh" min="0" placeholder="0" value="10">
+                </div>
+              </div>
+
+              <!-- STEP 3: DIET -->
+              <div class="wizard-step-panel hidden" id="step-panel-3">
+                <h3>Step 3: Food & Diet</h3>
+                <p class="panel-desc">Meat production accounts for double the footprint of plant-based agriculture.</p>
+                
+                <div class="form-group">
+                  <label>Primary Diet Description</label>
+                  <div class="radio-cards">
+                    <label class="radio-card active">
+                      <input type="radio" name="diet-select" value="average-meat" checked>
+                      <div class="radio-card-content">
+                        <i class="fa-solid fa-utensils"></i>
+                        <h4>Average Meat eater</h4>
+                        <p>Includes beef, chicken, dairy products.</p>
+                      </div>
+                    </label>
+
+                    <label class="radio-card">
+                      <input type="radio" name="diet-select" value="heavy-meat">
+                      <div class="radio-card-content">
+                        <i class="fa-solid fa-drumstick-bite"></i>
+                        <h4>Heavy Meat eater</h4>
+                        <p>Frequent red meat consumption daily.</p>
+                      </div>
+                    </label>
+
+                    <label class="radio-card">
+                      <input type="radio" name="diet-select" value="vegetarian">
+                      <div class="radio-card-content">
+                        <i class="fa-solid fa-egg"></i>
+                        <h4>Vegetarian</h4>
+                        <p>No meat, but consumes dairy and eggs.</p>
+                      </div>
+                    </label>
+
+                    <label class="radio-card">
+                      <input type="radio" name="diet-select" value="vegan">
+                      <div class="radio-card-content">
+                        <i class="fa-solid fa-seedling"></i>
+                        <h4>Vegan</h4>
+                        <p>Strictly plant-based foods only.</p>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 4: WASTE & RECYCLING -->
+              <div class="wizard-step-panel hidden" id="step-panel-4">
+                <h3>Step 4: Household Waste & Recycling</h3>
+                <p class="panel-desc">Proper disposal and recycling mitigates methane release in landfills.</p>
+                
+                <div class="form-group">
+                  <label>Weekly Waste Volume</label>
+                  <div class="btn-group-toggle" id="waste-volume-group">
+                    <button type="button" class="btn-toggle" data-value="low"><i class="fa-solid fa-trash-can"></i> Low</button>
+                    <button type="button" class="btn-toggle active" data-value="medium"><i class="fa-solid fa-trash-can"></i> Medium</button>
+                    <button type="button" class="btn-toggle" data-value="high"><i class="fa-solid fa-dumpster"></i> High</button>
+                  </div>
+                  <input type="hidden" id="waste-volume" value="medium">
+                </div>
+
+                <div class="form-group">
+                  <label for="recycle-rate">What percentage of your waste is recycled/composted?</label>
+                  <div class="slider-wrapper">
+                    <input type="range" id="recycle-rate" min="0" max="100" value="25">
+                    <span class="slider-value" id="recycle-value">25%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Navigation Actions -->
+              <div class="wizard-actions">
+                <button type="button" class="btn btn-secondary hidden" id="wizard-prev-btn"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+                <button type="button" class="btn btn-primary" id="wizard-next-btn">Next <i class="fa-solid fa-arrow-right"></i></button>
+                <button type="submit" class="btn btn-accent hidden" id="wizard-submit-btn"><i class="fa-solid fa-check"></i> Calculate Footprint</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- DAILY QUESTS CARD -->
+          <div class="glass-card quests-card" id="quests-card-panel">
+            <div class="card-header">
+              <h2><i class="fa-solid fa-circle-check"></i> Today's Eco Challenges</h2>
+              <span class="points-indicator" id="quest-points-indicator">+XP Rewards</span>
+            </div>
+            <p class="card-desc">Complete daily actions and record them to claim points and save carbon.</p>
+            <div class="quests-list" id="quests-list">
+              <!-- Dynamically populated -->
+              <div class="quest-skeleton"></div>
+              <div class="quest-skeleton"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: ANALYTICS & LEADERBOARD -->
+        <div class="layout-column">
+          
+          <!-- ANALYTICS/VISUALIZATION CARD -->
+          <div class="glass-card analytics-card">
+            <div class="card-header">
+              <h2><i class="fa-solid fa-chart-pie"></i> Carbon Footprint Analytics</h2>
+            </div>
+            
+            <div class="tabs-sub">
+              <button class="tab-sub-btn active" id="btn-chart-breakdown">Breakdown</button>
+              <button class="tab-sub-btn" id="btn-chart-history">History Trends</button>
+            </div>
+
+            <!-- Breakdown Chart Panel -->
+            <div class="chart-container" id="chart-breakdown-panel">
+              <canvas id="breakdownChart"></canvas>
+              <div class="no-data-msg hidden" id="chart-no-data">
+                <i class="fa-solid fa-chart-line"></i>
+                <p>No carbon footprint logged yet. Use the calculator to visualize your data!</p>
+              </div>
+            </div>
+
+            <!-- History Chart Panel (hidden by default) -->
+            <div class="chart-container hidden" id="chart-history-panel">
+              <canvas id="historyChart"></canvas>
+            </div>
+          </div>
+
+          <!-- LEADERBOARD CARD -->
+          <div class="glass-card leaderboard-card">
+            <div class="card-header">
+              <h2><i class="fa-solid fa-trophy"></i> Local Leaderboard</h2>
+              <span class="badge badge-cyan">Community</span>
+            </div>
+            <div class="leaderboard-table-container">
+              <table class="leaderboard-table">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Level</th>
+                    <th>Carbon Offset</th>
+                    <th>XP</th>
+                  </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- PERSONALIZED ACTION RECOMMENDATIONS CARD (FULL WIDTH) -->
+      <div class="glass-card recommendation-card hidden" id="recommendation-panel">
+        <div class="rec-icon">
+          <i class="fa-solid fa-lightbulb"></i>
+        </div>
+        <div class="rec-content">
+          <h3>Your Personalized Action Plan</h3>
+          <p id="rec-text">Our analysis shows transportation makes up the bulk of your footprint. Try mapping errands together or using light transit one day a week.</p>
+        </div>
+        <div class="rec-metric">
+          <span class="rec-metric-val" id="rec-saving-est">0.0 kg</span>
+          <span class="rec-metric-lbl">Est. Monthly Savings</span>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- SUCCESS POPUP NOTIFICATION -->
+  <div class="notification-toast hidden" id="notification-toast">
+    <div class="toast-content">
+      <i class="fa-solid fa-circle-check toast-icon"></i>
+      <div class="toast-text">
+        <h4 id="toast-title">Success</h4>
+        <p id="toast-body">Operation was completed.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-container">
+      <p>&copy; 2026 EcoTrace - Developed for SDG 13 Capstone Project</p>
+    </div>
+  </footer>
+
+  <!-- App JavaScript Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

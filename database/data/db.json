@@ -1,0 +1,172 @@
+{
+  "users": [
+    {
+      "id": "vtm97ey8l",
+      "name": "Test Citizen",
+      "email": "test_1783273257845@example.com",
+      "password": "$2a$10$tHa3taHXPBueL/SDKylbfutu1lruVALAwhlxSY6ceo77eMcetDcli",
+      "level": 1,
+      "points": 250,
+      "streak": 1,
+      "totalCarbonSaved": 4.2,
+      "lastActiveDate": "2026-07-05T17:40:58.004Z",
+      "createdAt": "2026-07-05T17:40:57.938Z",
+      "updatedAt": "2026-07-05T17:40:58.021Z"
+    },
+    {
+      "id": "9on47i1g0",
+      "name": "Sarthak",
+      "email": "ghagmansi3@gmail.com",
+      "password": "$2a$10$j2KnosB6u0E3XSixWGhzUORBqOnG8qafyzbLtuKCPjLMVINSxZL0y",
+      "level": 1,
+      "points": 100,
+      "streak": 1,
+      "totalCarbonSaved": 0,
+      "lastActiveDate": "2026-07-05T18:01:22.004Z",
+      "createdAt": "2026-07-05T17:50:41.071Z",
+      "updatedAt": "2026-07-05T18:01:22.006Z"
+    },
+    {
+      "id": "9w5dohuxu",
+      "name": "Test Citizen",
+      "email": "test_1783274347841@example.com",
+      "password": "$2a$10$T4bjSWN3N8ARqLqkD7SNZ.XIMDOqWK7UFcVSR4lJPurkCPdOVbrJ.",
+      "level": 1,
+      "points": 250,
+      "streak": 1,
+      "totalCarbonSaved": 4.2,
+      "lastActiveDate": "2026-07-05T17:59:07.976Z",
+      "createdAt": "2026-07-05T17:59:07.916Z",
+      "updatedAt": "2026-07-05T17:59:07.990Z"
+    }
+  ],
+  "logs": [
+    {
+      "id": "cpy88erh7",
+      "userId": "vtm97ey8l",
+      "transport": 23.6,
+      "energy": 25.2,
+      "diet": 11.9,
+      "waste": 10.64,
+      "totalCarbon": 71.34,
+      "details": {
+        "carDistance": 120,
+        "carType": "petrol",
+        "transitDistance": 50,
+        "flightHours": 0,
+        "electricityKwh": 60,
+        "gasKwh": 12,
+        "dietType": "vegetarian",
+        "wasteVolume": "medium",
+        "recycleRate": 40
+      },
+      "createdAt": "2026-07-05T17:40:58.008Z"
+    },
+    {
+      "id": "f8zq16vc6",
+      "userId": "9on47i1g0",
+      "transport": 1370,
+      "energy": 13.4,
+      "diet": 23.1,
+      "waste": 4.9,
+      "totalCarbon": 1411.4,
+      "details": {
+        "carDistance": 100,
+        "carType": "petrol",
+        "transitDistance": 50,
+        "flightHours": 15,
+        "electricityKwh": 30,
+        "gasKwh": 10,
+        "dietType": "heavy-meat",
+        "wasteVolume": "low",
+        "recycleRate": 50
+      },
+      "createdAt": "2026-07-05T17:52:34.088Z"
+    },
+    {
+      "id": "n5tf4iy5p",
+      "userId": "9w5dohuxu",
+      "transport": 23.6,
+      "energy": 25.2,
+      "diet": 11.9,
+      "waste": 10.64,
+      "totalCarbon": 71.34,
+      "details": {
+        "carDistance": 120,
+        "carType": "petrol",
+        "transitDistance": 50,
+        "flightHours": 0,
+        "electricityKwh": 60,
+        "gasKwh": 12,
+        "dietType": "vegetarian",
+        "wasteVolume": "medium",
+        "recycleRate": 40
+      },
+      "createdAt": "2026-07-05T17:59:07.980Z"
+    }
+  ],
+  "quests": [
+    {
+      "id": "q1",
+      "title": "Public Transit Commuter",
+      "description": "Use bus, train, or subway instead of driving today.",
+      "category": "transport",
+      "carbonSaved": 4.2,
+      "points": 150
+    },
+    {
+      "id": "q2",
+      "title": "Plant-Powered Plate",
+      "description": "Eat entirely plant-based meals today.",
+      "category": "food",
+      "carbonSaved": 2.1,
+      "points": 100
+    },
+    {
+      "id": "q3",
+      "title": "Vampire Power Slayer",
+      "description": "Unplug 5 unused electronics or chargers today.",
+      "category": "energy",
+      "carbonSaved": 0.8,
+      "points": 50
+    },
+    {
+      "id": "q4",
+      "title": "Zero Waste Hero",
+      "description": "Avoid single-use plastics and compost food waste today.",
+      "category": "waste",
+      "carbonSaved": 1.5,
+      "points": 80
+    },
+    {
+      "id": "q5",
+      "title": "Cold Wash Only",
+      "description": "Wash a load of laundry using cold water instead of hot.",
+      "category": "energy",
+      "carbonSaved": 1.1,
+      "points": 60
+    },
+    {
+      "id": "q6",
+      "title": "Pedal Power",
+      "description": "Walk or cycle for a trip under 3 miles.",
+      "category": "transport",
+      "carbonSaved": 2.5,
+      "points": 120
+    }
+  ],
+  "userQuests": [
+    {
+      "id": "xipojywvl",
+      "userId": "vtm97ey8l",
+      "questId": "q1",
+      "createdAt": "2026-07-05T17:40:58.019Z"
+    },
+    {
+      "id": "n1imzatm4",
+      "userId": "9w5dohuxu",
+      "questId": "q1",
+      "createdAt": "2026-07-05T17:59:07.988Z"
+    }
+  ]
+}
